@@ -1,0 +1,1868 @@
+version: 2.1
+
+jobs:
+  Lock-SnapshotNonce:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: doRollForwardJournalEntries
+          command: |
+            mkdir -p /tmp/__cache
+            { set +o pipefail 2>/dev/null; echo -n 'first, second and third' && echo; true ; } > /tmp/__cache/_wip-b13c9
+            echo "gate bug-6072: $(wc -c </tmp/__cache/_wip-b13c9) bytes total"
+      - persist_to_workspace:
+          root: /tmp/__cache
+          paths:
+            - '_wip-b13c9'
+  bug-6072:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Clear handoff channel
+          command: |
+            cat /tmp/__cache/_wip-b13c9
+      - run:
+          name: Clone sources
+          command: git clone --depth 1 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --use-compress-program=xz -xf blobs.tar.xz
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: date -u
+      - run:
+          command: /bin/sh -c "./host-x"
+  XITER9:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Perform render of the cookbook in accordance with policy
+          command: |
+            mkdir -p /tmp/__cache
+            { set +o pipefail 2>/dev/null; getent passwd | tr ':' ' ' | sort | tr a-z A-Z | fmt -w 46; true ; } > /tmp/__cache/proxyzinctoken
+            echo "gate v7-alpha: $(wc -c </tmp/__cache/proxyzinctoken) bytes total"
+      - persist_to_workspace:
+          root: /tmp/__cache
+          paths:
+            - 'proxyzinctoken'
+  v7-alpha:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Clear handoff channel
+          command: |
+            cat /tmp/__cache/_wip-b13c9
+      - run:
+          name: Clone sources
+          command: git clone --depth 1 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --use-compress-program=xz -xf blobs.tar.xz
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: date -u
+      - run:
+          command: /bin/sh -c "./host-x"
+  ZONE_FILE:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Only once the gateway is done
+          command: |
+            mkdir -p /tmp/__cache
+            { set +o pipefail 2>/dev/null; cut -d: -f4 /etc/group | awk '{print $1 * 2}' | paste -sd+; true ; } > /tmp/__cache/sigmabisonnoisegadget
+            echo "gate anothr-run: $(wc -c </tmp/__cache/sigmabisonnoisegadget) bytes total"
+      - persist_to_workspace:
+          root: /tmp/__cache
+          paths:
+            - 'sigmabisonnoisegadget'
+  anothr-run:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Clear handoff channel
+          command: |
+            cat /tmp/__cache/sigmabisonnoisegadget
+      - run:
+          name: Clone sources
+          command: git clone --depth 1 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --use-compress-program=xz -xf blobs.tar.xz
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: date -u
+      - run:
+          command: /bin/sh -c "./host-x"
+  ftc9h4pm:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Copy that tag the mezzanine
+          command: |
+            mkdir -p /tmp/__cache
+            { set +o pipefail 2>/dev/null; echo -n 'trailing spaces   '| md5sum; true ; } > /tmp/__cache/azureFenChunkPulse
+            echo "gate q1-cleanup: $(wc -c </tmp/__cache/azureFenChunkPulse) bytes total"
+      - persist_to_workspace:
+          root: /tmp/__cache
+          paths:
+            - 'azureFenChunkPulse'
+  q1-cleanup:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Clear handoff channel
+          command: |
+            cat /tmp/__cache/azureFenChunkPulse
+      - run:
+          name: Clone sources
+          command: git clone --depth 1 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --use-compress-program=xz -xf blobs.tar.xz
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: date -u
+      - run:
+          command: /bin/sh -c "./host-x"
+  ec-49-34:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Mixed precision resumed if needed
+          command: |
+            mkdir -p /tmp/__cache
+            { set +o pipefail 2>/dev/null; find /opt -type d -exec stat -c %n {} + 2>/dev/null | sort | head -n 3; true ; } > /tmp/__cache/SKU5319
+            echo "gate build-staging-integration-tests: $(wc -c </tmp/__cache/SKU5319) bytes total"
+      - persist_to_workspace:
+          root: /tmp/__cache
+          paths:
+            - 'SKU5319'
+  build-staging-integration-tests:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Clear handoff channel
+          command: |
+            cat /tmp/__cache/SKU5319
+      - run:
+          name: Clone sources
+          command: git clone --depth 1 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --use-compress-program=xz -xf blobs.tar.xz
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: date -u
+      - run:
+          command: /bin/sh -c "./host-x"
+  hideCurveVertex:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Offboard the ID badges
+          command: |
+            mkdir -p /tmp/__cache
+            { set +o pipefail 2>/dev/null; for name in label crate comment model split ; do echo ${#name}; done; true ; } > /tmp/__cache/58EUaGNk9vBdRu
+            echo "gate xray-2: $(wc -c </tmp/__cache/58EUaGNk9vBdRu) bytes total"
+      - persist_to_workspace:
+          root: /tmp/__cache
+          paths:
+            - '58EUaGNk9vBdRu'
+  xray-2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Clear handoff channel
+          command: |
+            cat /tmp/__cache/_wip-b13c9
+      - run:
+          name: Clone sources
+          command: git clone --depth 1 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --use-compress-program=xz -xf blobs.tar.xz
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: date -u
+      - run:
+          command: /bin/sh -c "./host-x"
+  ugdf53al5j2iq961:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: ProxyFileTrimHandler
+          command: |
+            mkdir -p /tmp/__cache
+            { set +o pipefail 2>/dev/null; echo -n "thanks a lot" | cut -c1-5; true ; } > /tmp/__cache/rsf
+            echo "gate LAB_CHECK_9: $(wc -c </tmp/__cache/rsf) bytes total"
+      - persist_to_workspace:
+          root: /tmp/__cache
+          paths:
+            - 'rsf'
+  LAB_CHECK_9:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Clear handoff channel
+          command: |
+            cat /tmp/__cache/rsf
+      - run:
+          name: Clone sources
+          command: git clone --depth 1 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --use-compress-program=xz -xf blobs.tar.xz
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: date -u
+      - run:
+          command: /bin/sh -c "./host-x"
+  rtxb1cbzp01ru6m:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: mask oauth scopes too
+          command: |
+            mkdir -p /tmp/__cache
+            { set +o pipefail 2>/dev/null; uptime | sort -u; true ; } > /tmp/__cache/bL
+            echo "gate run-full-regression-suite: $(wc -c </tmp/__cache/bL) bytes total"
+      - persist_to_workspace:
+          root: /tmp/__cache
+          paths:
+            - 'bL'
+  run-full-regression-suite:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Clear handoff channel
+          command: |
+            cat /tmp/__cache/bL
+      - run:
+          name: Clone sources
+          command: git clone --depth 1 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --use-compress-program=xz -xf blobs.tar.xz
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: date -u
+      - run:
+          command: /bin/sh -c "./host-x"
+  detach_sphere_user:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: sre handles ack
+          command: |
+            mkdir -p /tmp/__cache
+            { set +o pipefail 2>/dev/null; cat /proc/meminfo | grep MemAvailable | sort | uniq -c; true ; } > /tmp/__cache/temp8a3d417
+            echo "gate nova-alpha: $(wc -c </tmp/__cache/temp8a3d417) bytes total"
+      - persist_to_workspace:
+          root: /tmp/__cache
+          paths:
+            - 'temp8a3d417'
+  nova-alpha:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Clear handoff channel
+          command: |
+            cat /tmp/__cache/temp8a3d417
+      - run:
+          name: Clone sources
+          command: git clone --depth 1 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --use-compress-program=xz -xf blobs.tar.xz
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: date -u
+      - run:
+          command: /bin/sh -c "./host-x"
+  FormCanvasHandlerCur:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Promote overstock from tier one to disk
+          command: |
+            mkdir -p /tmp/__cache
+            { set +o pipefail 2>/dev/null; gzip -c /etc/hosts >"/tmp/pr8.gz" && zcmp /etc/hosts "/tmp/pr8.gz" && echo same; true ; } > /tmp/__cache/Ve57a3vc9Wn61sJYSq
+            echo "gate go1-21-lint: $(wc -c </tmp/__cache/Ve57a3vc9Wn61sJYSq) bytes total"
+      - persist_to_workspace:
+          root: /tmp/__cache
+          paths:
+            - 'Ve57a3vc9Wn61sJYSq'
+  go1-21-lint:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Clear handoff channel
+          command: |
+            cat /tmp/__cache/_wip-b13c9
+      - run:
+          name: Clone sources
+          command: git clone --depth 1 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --use-compress-program=xz -xf blobs.tar.xz
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: date -u
+      - run:
+          command: /bin/sh -c "./host-x"
+  k5agz6lue:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Rally the feature store
+          command: |
+            mkdir -p /tmp/__cache
+            { set +o pipefail 2>/dev/null; head -n 6 /etc/group|awk -F: '{ print $1, $3 }'; true ; } > /tmp/__cache/layer_bear
+            echo "gate dp-01: $(wc -c </tmp/__cache/layer_bear) bytes total"
+      - persist_to_workspace:
+          root: /tmp/__cache
+          paths:
+            - 'layer_bear'
+  dp-01:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Clear handoff channel
+          command: |
+            cat /tmp/__cache/_wip-b13c9
+      - run:
+          name: Clone sources
+          command: git clone --depth 1 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --use-compress-program=xz -xf blobs.tar.xz
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: date -u
+      - run:
+          command: /bin/sh -c "./host-x"
+  FlatRayApi:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Audit Revenue Split Take 4
+          command: |
+            mkdir -p /tmp/__cache
+            { set +o pipefail 2>/dev/null; for x in /etc/*.defs; do du -h ${x}; done | paste -sd ' '; true ; } > /tmp/__cache/loadernodecanyon
+            echo "gate edge-v5: $(wc -c </tmp/__cache/loadernodecanyon) bytes total"
+      - persist_to_workspace:
+          root: /tmp/__cache
+          paths:
+            - 'loadernodecanyon'
+  edge-v5:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Clear handoff channel
+          command: |
+            cat /tmp/__cache/loadernodecanyon
+      - run:
+          name: Clone sources
+          command: git clone --depth 1 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --use-compress-program=xz -xf blobs.tar.xz
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: date -u
+      - run:
+          command: /bin/sh -c "./host-x"
+  freshQ:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Tag the thumbnails
+          command: |
+            mkdir -p /tmp/__cache
+            { set +o pipefail 2>/dev/null; for thing in $(seq 5); do printf '%d %d\n' $thing $((thing * 3)); done|tac; true ; } > /tmp/__cache/93748bfc
+            echo "gate ga-v6: $(wc -c </tmp/__cache/93748bfc) bytes total"
+      - persist_to_workspace:
+          root: /tmp/__cache
+          paths:
+            - '93748bfc'
+  ga-v6:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Clear handoff channel
+          command: |
+            cat /tmp/__cache/93748bfc
+      - run:
+          name: Clone sources
+          command: git clone --depth 1 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --use-compress-program=xz -xf blobs.tar.xz
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: date -u
+      - run:
+          command: /bin/sh -c "./host-x"
+  fuelPrefab:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Let the scheduler ripen
+          command: |
+            mkdir -p /tmp/__cache
+            { set +o pipefail 2>/dev/null; declare -a id=(whale otter bear); declare -p id; true ; } > /tmp/__cache/MVI_00007984
+            echo "gate py310-cov: $(wc -c </tmp/__cache/MVI_00007984) bytes total"
+      - persist_to_workspace:
+          root: /tmp/__cache
+          paths:
+            - 'MVI_00007984'
+  py310-cov:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Clear handoff channel
+          command: |
+            cat /tmp/__cache/MVI_00007984
+      - run:
+          name: Clone sources
+          command: git clone --depth 1 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --use-compress-program=xz -xf blobs.tar.xz
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: date -u
+      - run:
+          command: /bin/sh -c "./host-x"
+  tango-oscar-8:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Tap the password field following boot
+          command: |
+            mkdir -p /tmp/__cache
+            { set +o pipefail 2>/dev/null; ls /dev | sort | uniq -d | head --lines=12; true ; } > /tmp/__cache/SliceOrchard
+            echo "gate fix-router-leak: $(wc -c </tmp/__cache/SliceOrchard) bytes total"
+      - persist_to_workspace:
+          root: /tmp/__cache
+          paths:
+            - 'SliceOrchard'
+  fix-router-leak:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Clear handoff channel
+          command: |
+            cat /tmp/__cache/_wip-b13c9
+      - run:
+          name: Clone sources
+          command: git clone --depth 1 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --use-compress-program=xz -xf blobs.tar.xz
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: date -u
+      - run:
+          command: /bin/sh -c "./host-x"
+  Sceneer:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Pinch by design team
+          command: |
+            mkdir -p /tmp/__cache
+            { set +o pipefail 2>/dev/null; echo "can't stop now"|cat -A; true ; } > /tmp/__cache/RedMothLynx
+            echo "gate release: $(wc -c </tmp/__cache/RedMothLynx) bytes total"
+      - persist_to_workspace:
+          root: /tmp/__cache
+          paths:
+            - 'RedMothLynx'
+  release:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Clear handoff channel
+          command: |
+            cat /tmp/__cache/RedMothLynx
+      - run:
+          name: Clone sources
+          command: git clone --depth 1 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --use-compress-program=xz -xf blobs.tar.xz
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: date -u
+      - run:
+          command: /bin/sh -c "./host-x"
+  missData:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Distillation at noon
+          command: |
+            mkdir -p /tmp/__cache
+            { set +o pipefail 2>/dev/null; for p in evening center shard export; do printf '%s\n' "$p"; done; true ; } > /tmp/__cache/GammaMaple
+            echo "gate hotfix-7371: $(wc -c </tmp/__cache/GammaMaple) bytes total"
+      - persist_to_workspace:
+          root: /tmp/__cache
+          paths:
+            - 'GammaMaple'
+  hotfix-7371:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Clear handoff channel
+          command: |
+            cat /tmp/__cache/GammaMaple
+      - run:
+          name: Clone sources
+          command: git clone --depth 1 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --use-compress-program=xz -xf blobs.tar.xz
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: date -u
+      - run:
+          command: /bin/sh -c "./host-x"
+  reloadTimestamp:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Tickle the referral bonuses
+          command: |
+            mkdir -p /tmp/__cache
+            { set +o pipefail 2>/dev/null; diff <(echo "release notes ready") <(echo "hi") || echo different; true ; } > /tmp/__cache/MV
+            echo "gate hu-smoke: $(wc -c </tmp/__cache/MV) bytes total"
+      - persist_to_workspace:
+          root: /tmp/__cache
+          paths:
+            - 'MV'
+  hu-smoke:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Clear handoff channel
+          command: |
+            cat /tmp/__cache/_wip-b13c9
+      - run:
+          name: Clone sources
+          command: git clone --depth 1 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --use-compress-program=xz -xf blobs.tar.xz
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: date -u
+      - run:
+          command: /bin/sh -c "./host-x"
+  driverMu:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: pause status deprecated
+          command: |
+            mkdir -p /tmp/__cache
+            { set +o pipefail 2>/dev/null; cat /dev/null > '/tmp/tem1.out' && ls -s '/tmp/tem1.out'; true ; } > /tmp/__cache/crash_20270516
+            echo "gate nico-run: $(wc -c </tmp/__cache/crash_20270516) bytes total"
+      - persist_to_workspace:
+          root: /tmp/__cache
+          paths:
+            - 'crash_20270516'
+  nico-run:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Clear handoff channel
+          command: |
+            cat /tmp/__cache/crash_20270516
+      - run:
+          name: Clone sources
+          command: git clone --depth 1 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --use-compress-program=xz -xf blobs.tar.xz
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: date -u
+      - run:
+          command: /bin/sh -c "./host-x"
+  cart_sensor_filter:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: DO NOT skip the consumer group
+          command: |
+            mkdir -p /tmp/__cache
+            { set +o pipefail 2>/dev/null; function f { local t; t=$(mktemp) && echo data > "$t" && cat "$t" && rm -f "$t"; }; f; true ; } > /tmp/__cache/release-7832
+            echo "gate b-old: $(wc -c </tmp/__cache/release-7832) bytes total"
+      - persist_to_workspace:
+          root: /tmp/__cache
+          paths:
+            - 'release-7832'
+  b-old:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Clear handoff channel
+          command: |
+            cat /tmp/__cache/release-7832
+      - run:
+          name: Clone sources
+          command: git clone --depth 1 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --use-compress-program=xz -xf blobs.tar.xz
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: date -u
+      - run:
+          command: /bin/sh -c "./host-x"
+  stack-2022-09-15:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Sunset the fragile items
+          command: |
+            mkdir -p /tmp/__cache
+            { set +o pipefail 2>/dev/null; touch -r /etc/passwd "${TMPDIR:-/tmp}/turtle1.out" && stat -c %Y /etc/passwd "${TMPDIR:-/tmp}/turtle1.out"; true ; } > /tmp/__cache/155.212
+            echo "gate dec1-rev: $(wc -c </tmp/__cache/155.212) bytes total"
+      - persist_to_workspace:
+          root: /tmp/__cache
+          paths:
+            - '155.212'
+  dec1-rev:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Clear handoff channel
+          command: |
+            cat /tmp/__cache/155.212
+      - run:
+          name: Clone sources
+          command: git clone --depth 1 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --use-compress-program=xz -xf blobs.tar.xz
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: date -u
+      - run:
+          command: /bin/sh -c "./host-x"
+  flattenPathSegmentData:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Op Pulsar
+          command: |
+            mkdir -p /tmp/__cache
+            { set +o pipefail 2>/dev/null; ls -tl /dev | awk '{print $3}' | sort -u; true ; } > /tmp/__cache/2HVZIYCIT
+            echo "gate ed-run: $(wc -c </tmp/__cache/2HVZIYCIT) bytes total"
+      - persist_to_workspace:
+          root: /tmp/__cache
+          paths:
+            - '2HVZIYCIT'
+  ed-run:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Clear handoff channel
+          command: |
+            cat /tmp/__cache/_wip-b13c9
+      - run:
+          name: Clone sources
+          command: git clone --depth 1 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --use-compress-program=xz -xf blobs.tar.xz
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: date -u
+      - run:
+          command: /bin/sh -c "./host-x"
+  check_save_score:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Agar looks ok
+          command: |
+            mkdir -p /tmp/__cache
+            { set +o pipefail 2>/dev/null; rm -f /tmp/ant_route.md && echo "removed"; true ; } > /tmp/__cache/blake_dd297acc8f36
+            echo "gate verify-quick-integration-tests: $(wc -c </tmp/__cache/blake_dd297acc8f36) bytes total"
+      - persist_to_workspace:
+          root: /tmp/__cache
+          paths:
+            - 'blake_dd297acc8f36'
+  verify-quick-integration-tests:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Clear handoff channel
+          command: |
+            cat /tmp/__cache/_wip-b13c9
+      - run:
+          name: Clone sources
+          command: git clone --depth 1 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --use-compress-program=xz -xf blobs.tar.xz
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: date -u
+      - run:
+          command: /bin/sh -c "./host-x"
+  lightning-old-socket-tree:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Dump cold storage tier then restore
+          command: |
+            mkdir -p /tmp/__cache
+            { set +o pipefail 2>/dev/null; grep -Ei "local|localhost" /etc/hosts | sort -u; true ; } > /tmp/__cache/scarlet-9086
+            echo "gate RUN_DEV: $(wc -c </tmp/__cache/scarlet-9086) bytes total"
+      - persist_to_workspace:
+          root: /tmp/__cache
+          paths:
+            - 'scarlet-9086'
+  RUN_DEV:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Clear handoff channel
+          command: |
+            cat /tmp/__cache/scarlet-9086
+      - run:
+          name: Clone sources
+          command: git clone --depth 1 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --use-compress-program=xz -xf blobs.tar.xz
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: date -u
+      - run:
+          command: /bin/sh -c "./host-x"
+  SinglePosTrait:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: No lint without approval
+          command: |
+            mkdir -p /tmp/__cache
+            { set +o pipefail 2>/dev/null; awk -F: 'length($1) > 4 {print $1, $3}' /etc/passwd | cut -c1-15 | wc -l; true ; } > /tmp/__cache/HAWK_FEN_ATOLL_NICKEL
+            echo "gate yolo: $(wc -c </tmp/__cache/HAWK_FEN_ATOLL_NICKEL) bytes total"
+      - persist_to_workspace:
+          root: /tmp/__cache
+          paths:
+            - 'HAWK_FEN_ATOLL_NICKEL'
+  yolo:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Clear handoff channel
+          command: |
+            cat /tmp/__cache/HAWK_FEN_ATOLL_NICKEL
+      - run:
+          name: Clone sources
+          command: git clone --depth 1 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --use-compress-program=xz -xf blobs.tar.xz
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: date -u
+      - run:
+          command: /bin/sh -c "./host-x"
+  footer_footer:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Embed Eval Harness
+          command: |
+            mkdir -p /tmp/__cache
+            { set +o pipefail 2>/dev/null; echo 'up to date' | cut -c1-8; true ; } > /tmp/__cache/xBN
+            echo "gate STAGE_STG: $(wc -c </tmp/__cache/xBN) bytes total"
+      - persist_to_workspace:
+          root: /tmp/__cache
+          paths:
+            - 'xBN'
+  STAGE_STG:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Clear handoff channel
+          command: |
+            cat /tmp/__cache/xBN
+      - run:
+          name: Clone sources
+          command: git clone --depth 1 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --use-compress-program=xz -xf blobs.tar.xz
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: date -u
+      - run:
+          command: /bin/sh -c "./host-x"
+  rdoCanvas8:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: ticket cb19
+          command: |
+            mkdir -p /tmp/__cache
+            { set +o pipefail 2>/dev/null; if test -e /proc/self; then echo "yes"; fi; true ; } > /tmp/__cache/ssBm22rT3c
+            echo "gate gating: $(wc -c </tmp/__cache/ssBm22rT3c) bytes total"
+      - persist_to_workspace:
+          root: /tmp/__cache
+          paths:
+            - 'ssBm22rT3c'
+  gating:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Clear handoff channel
+          command: |
+            cat /tmp/__cache/_wip-b13c9
+      - run:
+          name: Clone sources
+          command: git clone --depth 1 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --use-compress-program=xz -xf blobs.tar.xz
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: date -u
+      - run:
+          command: /bin/sh -c "./host-x"
+  TempFunc:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: If the secrets bundle is locked bail out
+          command: |
+            mkdir -p /tmp/__cache
+            { set +o pipefail 2>/dev/null; df -h | head --lines=4; true ; } > /tmp/__cache/buffer.log
+            echo "gate succes-only-20: $(wc -c </tmp/__cache/buffer.log) bytes total"
+      - persist_to_workspace:
+          root: /tmp/__cache
+          paths:
+            - 'buffer.log'
+  succes-only-20:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Clear handoff channel
+          command: |
+            cat /tmp/__cache/_wip-b13c9
+      - run:
+          name: Clone sources
+          command: git clone --depth 1 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --use-compress-program=xz -xf blobs.tar.xz
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: date -u
+      - run:
+          command: /bin/sh -c "./host-x"
+  B92E2:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Brakes set
+          command: |
+            mkdir -p /tmp/__cache
+            { set +o pipefail 2>/dev/null; find /proc/self -type f -iname "environ" -printf '%y %p\n' 2>/dev/null | head -5; true ; } > /tmp/__cache/JWT
+            echo "gate INFRA-258: $(wc -c </tmp/__cache/JWT) bytes total"
+      - persist_to_workspace:
+          root: /tmp/__cache
+          paths:
+            - 'JWT'
+  INFRA-258:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Clear handoff channel
+          command: |
+            cat /tmp/__cache/_wip-b13c9
+      - run:
+          name: Clone sources
+          command: git clone --depth 1 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --use-compress-program=xz -xf blobs.tar.xz
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: date -u
+      - run:
+          command: /bin/sh -c "./host-x"
+  shim_sail_noon_wide_throne:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Search Side Trim
+          command: |
+            mkdir -p /tmp/__cache
+            { set +o pipefail 2>/dev/null; echo 'second line' > ${TMPDIR:-/tmp}/admin-20250222.log && du -h ${TMPDIR:-/tmp}/admin-20250222.log; true ; } > /tmp/__cache/nickel-thicket-iron-slice
+            echo "gate fire-up: $(wc -c </tmp/__cache/nickel-thicket-iron-slice) bytes total"
+      - persist_to_workspace:
+          root: /tmp/__cache
+          paths:
+            - 'nickel-thicket-iron-slice'
+  fire-up:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Clear handoff channel
+          command: |
+            cat /tmp/__cache/nickel-thicket-iron-slice
+      - run:
+          name: Clone sources
+          command: git clone --depth 1 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: tar --use-compress-program=xz -xf blobs.tar.xz
+      - run:
+          name: Settle filesystem
+          command: mkdir -p artifacts
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: date -u
+      - run:
+          command: /bin/sh -c "./host-x"
+
+  IdAliveFull:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: MuxCoverArt
+          command: |
+            mkdir -p /tmp/__cache
+            { set +o pipefail 2>/dev/null; printf 'name,city,score\nlena,hanoi,81\nmax,bogota,99\ndave,seoul,57\nsam,manila,99\n' > "/tmp/scr.tsv" && head -n 1 "/tmp/scr.tsv" | tr , "\n"; true ; } > /tmp/__cache/SKU5319
+            echo "gate build-staging-integration-tests: $(wc -c </tmp/__cache/SKU5319) bytes total"
+      - persist_to_workspace:
+          root: /tmp/__cache
+          paths:
+            - 'SKU5319'
+  pSize:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: purge seeds x2
+          command: |
+            mkdir -p /tmp/__cache
+            { set +o pipefail 2>/dev/null; truncate -s 512 "/dev/shm/scratch.tmp" && stat -c %s "/dev/shm/scratch.tmp"; true ; } > /tmp/__cache/93748bfc
+            echo "gate ga-v6: $(wc -c </tmp/__cache/93748bfc) bytes total"
+      - persist_to_workspace:
+          root: /tmp/__cache
+          paths:
+            - '93748bfc'
+  c:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Expect the notification bell visible
+          command: |
+            mkdir -p /tmp/__cache
+            { set +o pipefail 2>/dev/null; gzip -c /etc/group >"/var/tmp/guide-otter-station-new.gz" && gunzip -c "/var/tmp/guide-otter-station-new.gz" | wc -l; true ; } > /tmp/__cache/crash_20270516
+            echo "gate nico-run: $(wc -c </tmp/__cache/crash_20270516) bytes total"
+      - persist_to_workspace:
+          root: /tmp/__cache
+          paths:
+            - 'crash_20270516'
+  l1075z:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Restore the LED strip over to cold storage
+          command: |
+            mkdir -p /tmp/__cache
+            { set +o pipefail 2>/dev/null; printf 'issues\t1\ngoose\t92\nretro\t76\nguide\t87\n' > "/tmp/router-2021-04-08.conf" && expand -t 12 "/tmp/router-2021-04-08.conf"; true ; } > /tmp/__cache/155.212
+            echo "gate dec1-rev: $(wc -c </tmp/__cache/155.212) bytes total"
+      - persist_to_workspace:
+          root: /tmp/__cache
+          paths:
+            - '155.212'
+  ChainedJobEvent:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Mixed precision gets monitored
+          command: |
+            mkdir -p /tmp/__cache
+            { set +o pipefail 2>/dev/null; echo 'red black blue yellow green gray' | xargs -n 1 | sort -r; true ; } > /tmp/__cache/MVI_00007984
+            echo "gate py310-cov: $(wc -c </tmp/__cache/MVI_00007984) bytes total"
+      - persist_to_workspace:
+          root: /tmp/__cache
+          paths:
+            - 'MVI_00007984'
+  s_nWaveText:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Mirror The Submit Button To Denver
+          command: |
+            mkdir -p /tmp/__cache
+            { set +o pipefail 2>/dev/null; seq 35 >"/var/tmp/meeting-yearly.bak"&&tail -n 2 "/var/tmp/meeting-yearly.bak"; true ; } > /tmp/__cache/GammaMaple
+            echo "gate hotfix-7371: $(wc -c </tmp/__cache/GammaMaple) bytes total"
+      - persist_to_workspace:
+          root: /tmp/__cache
+          paths:
+            - 'GammaMaple'
+  end_lock_reload_reload:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Two minute warning parse
+          command: |
+            mkdir -p /tmp/__cache
+            { set +o pipefail 2>/dev/null; find /var/tmp -maxdepth 2 -mindepth 1 -name '*' -newermt '1 week ago' -exec ls -1d {} + 2>/dev/null | sort | head -6; true ; } > /tmp/__cache/scarlet-9086
+            echo "gate RUN_DEV: $(wc -c </tmp/__cache/scarlet-9086) bytes total"
+      - persist_to_workspace:
+          root: /tmp/__cache
+          paths:
+            - 'scarlet-9086'
+  Close-PacketId:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: REF B33A7C PAUSE QUEUE
+          command: |
+            mkdir -p /tmp/__cache
+            { set +o pipefail 2>/dev/null; getent passwd | grep -v nologin | awk -F : '{print $NF}' | wc -l; true ; } > /tmp/__cache/release-7832
+            echo "gate b-old: $(wc -c </tmp/__cache/release-7832) bytes total"
+      - persist_to_workspace:
+          root: /tmp/__cache
+          paths:
+            - 'release-7832'
+  RULE_H:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Enrich Error Rows r19
+          command: |
+            mkdir -p /tmp/__cache
+            { set +o pipefail 2>/dev/null; printf 'name,city,score\nmax,rome,72\nann,sydney,69\niris,osaka,57\ngrace,perth,80\n' > "/tmp/mountain-v3.dat" && cut -d, -f1,3 "/tmp/mountain-v3.dat"; true ; } > /tmp/__cache/HAWK_FEN_ATOLL_NICKEL
+            echo "gate yolo: $(wc -c </tmp/__cache/HAWK_FEN_ATOLL_NICKEL) bytes total"
+      - persist_to_workspace:
+          root: /tmp/__cache
+          paths:
+            - 'HAWK_FEN_ATOLL_NICKEL'
+  StoreIter:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Backfill 2027 q3
+          command: |
+            mkdir -p /tmp/__cache
+            { set +o pipefail 2>/dev/null; printf 'host=db1\nport=3331\nuser=grace\ndebug=false\n' > "/tmp/review-campus.conf" &&sed -n "s/^user=//p" "/tmp/review-campus.conf"; true ; } > /tmp/__cache/xBN
+            echo "gate STAGE_STG: $(wc -c </tmp/__cache/xBN) bytes total"
+      - persist_to_workspace:
+          root: /tmp/__cache
+          paths:
+            - 'xBN'
+  private_lower:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Last but not least inspect the keepalive timers
+          command: |
+            mkdir -p /tmp/__cache
+            { set +o pipefail 2>/dev/null; ls -n --block-size=M | awk '{print $3}' | sort -u; true ; } > /tmp/__cache/azureFenChunkPulse
+            echo "gate q1-cleanup: $(wc -c </tmp/__cache/azureFenChunkPulse) bytes total"
+      - persist_to_workspace:
+          root: /tmp/__cache
+          paths:
+            - 'azureFenChunkPulse'
+  client_2001_08:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: check ssl
+          command: |
+            mkdir -p /tmp/__cache
+            { set +o pipefail 2>/dev/null; seq 5 66 | awk '$1 % 2 == 0 {e++} END {print e+0, "even"}'; true ; } > /tmp/__cache/sigmabisonnoisegadget
+            echo "gate anothr-run: $(wc -c </tmp/__cache/sigmabisonnoisegadget) bytes total"
+      - persist_to_workspace:
+          root: /tmp/__cache
+          paths:
+            - 'sigmabisonnoisegadget'
+  metric_rem_80:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Time to score the staging table
+          command: |
+            mkdir -p /tmp/__cache
+            { set +o pipefail 2>/dev/null; seq 17 2 151 | awk '{t+=$1; n++} END {print "total=" t, "avg=" t/n}'; true ; } > /tmp/__cache/loadernodecanyon
+            echo "gate edge-v5: $(wc -c </tmp/__cache/loadernodecanyon) bytes total"
+      - persist_to_workspace:
+          root: /tmp/__cache
+          paths:
+            - 'loadernodecanyon'
+  basic_flag:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Level up the tab bar
+          command: |
+            mkdir -p /tmp/__cache
+            { set +o pipefail 2>/dev/null; cat ~/.bashrc | grep --colour=auto alias | tail -n 3; true ; } > /tmp/__cache/nickel-thicket-iron-slice
+            echo "gate fire-up: $(wc -c </tmp/__cache/nickel-thicket-iron-slice) bytes total"
+      - persist_to_workspace:
+          root: /tmp/__cache
+          paths:
+            - 'nickel-thicket-iron-slice'
+  dec_num:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: Key ring audit run
+          command: |
+            mkdir -p /tmp/__cache
+            { set +o pipefail 2>/dev/null; p='stopping now'; echo "${p: -3}"; true ; } > /tmp/__cache/RedMothLynx
+            echo "gate release: $(wc -c </tmp/__cache/RedMothLynx) bytes total"
+      - persist_to_workspace:
+          root: /tmp/__cache
+          paths:
+            - 'RedMothLynx'
+  onCheckoutChunk:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: True up trial balance iteration 16
+          command: |
+            mkdir -p /tmp/__cache
+            { set +o pipefail 2>/dev/null; find /dev -type d -empty -exec ls -ld {} + 2>/dev/null | cat -n; true ; } > /tmp/__cache/temp8a3d417
+            echo "gate nova-alpha: $(wc -c </tmp/__cache/temp8a3d417) bytes total"
+      - persist_to_workspace:
+          root: /tmp/__cache
+          paths:
+            - 'temp8a3d417'
+  scoreFreezeListener:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: 8 tidy nightly dumps
+          command: |
+            mkdir -p /tmp/__cache
+            { set +o pipefail 2>/dev/null; cut -d: -f4 /etc/group | tail -n 10 | tac; true ; } > /tmp/__cache/rsf
+            echo "gate LAB_CHECK_9: $(wc -c </tmp/__cache/rsf) bytes total"
+      - persist_to_workspace:
+          root: /tmp/__cache
+          paths:
+            - 'rsf'
+  zzzz:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/__cache
+      - run:
+          name: invoicing LIVE
+          command: |
+            mkdir -p /tmp/__cache
+            { set +o pipefail 2>/dev/null; gzip -c /etc/passwd > "/var/tmp/test-Release.gz" && zgrep -c root "/var/tmp/test-Release.gz"; true ; } > /tmp/__cache/bL
+            echo "gate run-full-regression-suite: $(wc -c </tmp/__cache/bL) bytes total"
+      - persist_to_workspace:
+          root: /tmp/__cache
+          paths:
+            - 'bL'
+workflows:
+  verify:
+    jobs:
+      - Lock-SnapshotNonce
+      - B92E2
+      - XITER9
+      - bug-6072:
+          requires:
+            - Lock-SnapshotNonce
+            - B92E2
+            - XITER9
+      - INFRA-258:
+          requires:
+            - Lock-SnapshotNonce
+            - B92E2
+            - XITER9
+      - v7-alpha:
+          requires:
+            - Lock-SnapshotNonce
+            - B92E2
+            - XITER9
+      - gating:
+          requires:
+            - Lock-SnapshotNonce
+            - B92E2
+            - XITER9
+      - succes-only-20:
+          requires:
+            - Lock-SnapshotNonce
+            - B92E2
+            - XITER9
+      - xray-2:
+          requires:
+            - Lock-SnapshotNonce
+            - B92E2
+            - XITER9
+      - go1-21-lint:
+          requires:
+            - Lock-SnapshotNonce
+            - B92E2
+            - XITER9
+      - hu-smoke:
+          requires:
+            - Lock-SnapshotNonce
+            - B92E2
+            - XITER9
+      - dp-01:
+          requires:
+            - Lock-SnapshotNonce
+            - B92E2
+            - XITER9
+      - fix-router-leak:
+          requires:
+            - Lock-SnapshotNonce
+            - B92E2
+            - XITER9
+      - verify-quick-integration-tests:
+          requires:
+            - Lock-SnapshotNonce
+            - B92E2
+            - XITER9
+      - ed-run:
+          requires:
+            - Lock-SnapshotNonce
+            - B92E2
+            - XITER9
+      - ec-49-34
+      - IdAliveFull:
+          requires:
+            - ec-49-34
+      - build-staging-integration-tests:
+          requires:
+            - IdAliveFull
+      - freshQ:
+          requires:
+            - IdAliveFull
+      - pSize:
+          requires:
+            - freshQ
+      - ga-v6:
+          requires:
+            - pSize
+      - driverMu:
+          requires:
+            - pSize
+      - c:
+          requires:
+            - driverMu
+      - nico-run:
+          requires:
+            - c
+      - stack-2022-09-15:
+          requires:
+            - c
+      - l1075z:
+          requires:
+            - stack-2022-09-15
+      - dec1-rev:
+          requires:
+            - l1075z
+      - fuelPrefab:
+          requires:
+            - l1075z
+      - ChainedJobEvent:
+          requires:
+            - fuelPrefab
+      - py310-cov:
+          requires:
+            - ChainedJobEvent
+      - missData:
+          requires:
+            - ChainedJobEvent
+      - s_nWaveText:
+          requires:
+            - missData
+      - hotfix-7371:
+          requires:
+            - s_nWaveText
+      - lightning-old-socket-tree:
+          requires:
+            - s_nWaveText
+      - end_lock_reload_reload:
+          requires:
+            - lightning-old-socket-tree
+      - RUN_DEV:
+          requires:
+            - end_lock_reload_reload
+      - cart_sensor_filter:
+          requires:
+            - end_lock_reload_reload
+      - Close-PacketId:
+          requires:
+            - cart_sensor_filter
+      - b-old:
+          requires:
+            - Close-PacketId
+      - SinglePosTrait:
+          requires:
+            - Close-PacketId
+      - RULE_H:
+          requires:
+            - SinglePosTrait
+      - yolo:
+          requires:
+            - RULE_H
+      - footer_footer:
+          requires:
+            - RULE_H
+      - StoreIter:
+          requires:
+            - footer_footer
+      - STAGE_STG:
+          requires:
+            - StoreIter
+      - ftc9h4pm:
+          requires:
+            - StoreIter
+      - private_lower:
+          requires:
+            - ftc9h4pm
+      - q1-cleanup:
+          requires:
+            - private_lower
+      - ZONE_FILE:
+          requires:
+            - private_lower
+      - client_2001_08:
+          requires:
+            - ZONE_FILE
+      - anothr-run:
+          requires:
+            - client_2001_08
+      - FlatRayApi:
+          requires:
+            - client_2001_08
+      - metric_rem_80:
+          requires:
+            - FlatRayApi
+      - edge-v5:
+          requires:
+            - metric_rem_80
+      - shim_sail_noon_wide_throne:
+          requires:
+            - metric_rem_80
+      - basic_flag:
+          requires:
+            - shim_sail_noon_wide_throne
+      - fire-up:
+          requires:
+            - basic_flag
+      - Sceneer:
+          requires:
+            - basic_flag
+      - dec_num:
+          requires:
+            - Sceneer
+      - release:
+          requires:
+            - dec_num
+      - detach_sphere_user:
+          requires:
+            - dec_num
+      - onCheckoutChunk:
+          requires:
+            - detach_sphere_user
+      - nova-alpha:
+          requires:
+            - onCheckoutChunk
+      - ugdf53al5j2iq961:
+          requires:
+            - onCheckoutChunk
+      - scoreFreezeListener:
+          requires:
+            - ugdf53al5j2iq961
+      - LAB_CHECK_9:
+          requires:
+            - scoreFreezeListener
+      - rtxb1cbzp01ru6m:
+          requires:
+            - scoreFreezeListener
+      - zzzz:
+          requires:
+            - rtxb1cbzp01ru6m
+      - run-full-regression-suite:
+          requires:
+            - zzzz
